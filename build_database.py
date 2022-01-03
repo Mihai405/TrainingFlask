@@ -1,7 +1,9 @@
-from application import db
+from application import db, create_app
 from application.friends.models import Friends
 from application.users.models import Users
 
+app = create_app()
+app.app_context().push()
 db.create_all()
 u=Users(email="mihai@yahoo.com",password="mihai",first_name="mihai",last_name="mihai")
 u2=Users(email="mihai2@yahoo.com",password="mihai2",first_name="mihai2",last_name="mihai2")
