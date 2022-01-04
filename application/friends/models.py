@@ -16,7 +16,7 @@ class Friends(db.Model):
         backref=db.backref('friends', lazy=True))
 
 class FriendsSchema(ma.Schema):
-    id = fields.Int()
+    id = fields.Int(dump_only=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
     number = fields.Str(required=True)

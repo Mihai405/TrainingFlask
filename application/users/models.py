@@ -25,7 +25,7 @@ class Users(db.Model):
         return bcrypt.check_password_hash(self._password,string)
 
 class UsersSchema(ma.Schema):
-    id = fields.Int()
+    id = fields.Int(dump_only=True)
     email = fields.Email(required=True)
     password = fields.Str(load_only=True)
     first_name = fields.Str(required=True)
