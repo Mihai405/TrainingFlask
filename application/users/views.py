@@ -41,6 +41,7 @@ class UsersList(Resource):
         return user_schema.dump(new_user)
 
 class AuthUser(Resource):
+
     def post(self):
         email = request.json["email"]
         password = request.json["password"]
@@ -57,6 +58,7 @@ class AuthUser(Resource):
             )
         session['user_id']=user.id
         return user_schema.dump(user)
+
     def delete(self):
         try:
             session.pop("user_id")

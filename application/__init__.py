@@ -1,10 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask_caching import Cache
 import os
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
 
 def create_app(test_config=None):
     basedir = os.path.abspath(os.path.dirname(__file__))
@@ -16,6 +18,7 @@ def create_app(test_config=None):
         app.config.update(test_config)
     db.init_app(app)
     bcrypt.init_app(app)
+    cache.init_app(app)
 
     #local imports
     from .friends import friends

@@ -5,13 +5,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy import and_
 from .models import Friends , FriendsSchema, UpdateFriendSchema
 from application.users.models import Users
-from application import db
+from application import db, cache
 
 friend_schema = FriendsSchema()
 friends_schema = FriendsSchema(many=True)
 
 class FriendsList(Resource):
-
+    @cache.cached(timeout=500)
     def get(self):
         try:
             session["user_id"]
@@ -53,12 +53,13 @@ class FriendsList(Resource):
                 400,
                 "Error adding in db"
             )
+        cache.clear()
         return friend_schema.dump(new_friend)
 
 update_friend_schema = UpdateFriendSchema()
 
 class FriendUpdate(Resource):
-
+    @cache.cached(timeout=500)
     def get(self, friend_id):
         try:
             session["user_id"]
@@ -119,6 +120,7 @@ class FriendUpdate(Resource):
                 400,
                 "Error adding in db"
             )
+        cache.clear()
         return friend_schema.dump(friend)
 
     def delete(self, friend_id):
@@ -146,4 +148,5 @@ class FriendUpdate(Resource):
                 400,
                 "Error adding in db"
             )
+        cache.clear()
         return f"Deleted friend with friend id {friend_id}"
