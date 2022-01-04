@@ -23,7 +23,7 @@ def create_app(test_config=None):
     #local imports
     from .friends import friends
     from .users import users
-    app.register_blueprint(friends)
-    app.register_blueprint(users)
+    app.register_blueprint(friends, url_prefix="/friends/")
+    app.register_blueprint(users, url_prefix="/users/")
 
     return app

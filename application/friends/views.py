@@ -1,4 +1,4 @@
-from flask_restful import Resource
+from flask_restx import Resource
 from flask import request, session, abort
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError

@@ -1,6 +1,6 @@
-from flask_restful import Resource
+from flask_restx import Resource
 from .models import Users, UsersSchema
-from application import db
+from application import db, cache
 from flask import request, session, abort
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
@@ -38,6 +38,7 @@ class UsersList(Resource):
                 400,
                 "Error adding in db"
             )
+        cache.clear()
         return user_schema.dump(new_user)
 
 class AuthUser(Resource):
@@ -67,4 +68,5 @@ class AuthUser(Resource):
                 401,
                 "Unauthenticated"
             )
+        cache.clear()
         return "Log Out"

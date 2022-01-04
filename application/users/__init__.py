@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Api
+from flask_restx import Api
 from flask_marshmallow import Marshmallow
 
 
@@ -8,5 +8,5 @@ ma = Marshmallow(users)
 api = Api(users)
 
 from .views import UsersList, AuthUser
-api.add_resource(UsersList,"/users")
-api.add_resource(AuthUser,"/auth")
+api.add_resource(UsersList,"/users/")
+api.add_resource(AuthUser,"/auth/")
