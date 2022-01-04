@@ -22,7 +22,7 @@ def create_app(test_config=None):
     bcrypt.init_app(app)
     cache.init_app(app)
 
-    #local imports
+    #add Blueprints to app object
     from .friends import friends
     from .users import users
     app.register_blueprint(friends, url_prefix="/friends/")

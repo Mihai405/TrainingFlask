@@ -34,6 +34,7 @@ class FriendsList(Resource):
     @api.marshal_with(friend_fields, as_list=True)
     @cache.cached(timeout=500)
     def get(self):
+        #try to get current User and list his friends
         try:
             session["user_id"]
         except KeyError:
@@ -47,6 +48,7 @@ class FriendsList(Resource):
     @api.doc(responses={200: ('Success', friend_fields), 401: 'Unauthorized', 400:'Bad Request'},
              body=friend_create_fields)
     def post(self):
+        #try to get the current User and create a new Friend
         try:
             session["user_id"]
         except KeyError:
@@ -93,6 +95,7 @@ class FriendUpdate(Resource):
     @api.doc(responses={200: ('Success', friend_fields), 401: 'Unauthorized', 400:'Bad Request'})
     @cache.cached(timeout=500)
     def get(self, friend_id):
+        #try to get the current User and the friend with id = friend_id
         try:
             session["user_id"]
         except KeyError:
@@ -113,6 +116,7 @@ class FriendUpdate(Resource):
     @api.doc(responses={200: ('Success', friend_fields), 401: 'Unauthorized', 400:'Bad Request'},
              body=friend_update_fields)
     def put(self, friend_id):
+        # try to get the current User and update the friend with id = friend_id
         try:
             session["user_id"]
         except KeyError:
@@ -159,6 +163,7 @@ class FriendUpdate(Resource):
 
     @api.doc(responses={200: 'Success', 401: 'Unauthorized', 400:'Bad Request'})
     def delete(self, friend_id):
+        # try to get the current User and delete the friend with id = friend_id
         try:
             session["user_id"]
         except KeyError:

@@ -33,11 +33,13 @@ class UsersList(Resource):
     @api.doc(responses={400: 'Bad Request'})
     @api.marshal_with(user_fields, as_list=True)
     def get(self):
+        # List all Users
         users=Users.query.all()
         return users_schema.dump(users)
 
     @api.doc(responses={200: ('Success', user_fields), 400:'Bad Request', 401: 'Unauthorized'}, body=user_create_fields)
     def post(self):
+        # Register new User
         try:
             user_schema.load(request.json)
         except ValidationError as err:
@@ -68,6 +70,7 @@ class AuthUser(Resource):
 
     @api.doc(responses={200: ('Success', user_fields), 400: 'Bad Request'},body=user_logIn_fields)
     def post(self):
+        # Log In User
         email = request.json["email"]
         password = request.json["password"]
         user = Users.query.filter_by(email=email).first()
@@ -86,6 +89,7 @@ class AuthUser(Resource):
 
     @api.doc(responses={200: ('Success', user_fields), 400: 'Bad Request'})
     def delete(self):
+        # Log Out User
         try:
             session.pop("user_id")
         except KeyError:
